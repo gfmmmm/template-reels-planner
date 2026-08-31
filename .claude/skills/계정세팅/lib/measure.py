@@ -38,6 +38,7 @@ def main(folder):
     for p in files:
         t = p.read_text(encoding="utf-8")
         script = section(t, "대본")
+        if script.startswith("대본 없음"): script = ""  # 표시 문구를 문장·어미로 세지 않는다
         cap = section(t, "캡션")
         ss = sentences(script)
         all_sents += ss

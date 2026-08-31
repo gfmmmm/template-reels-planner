@@ -60,7 +60,6 @@ Claude가 말없이 확인한다.
 - supabase: `bash .claude/skills/릴스대본기획/lib/fetch.sh ctx` 실행해 계정 정보가 나오는지
 - manual: 건너뜀
 
-> 참고: JSON 대시보드 읽기(mode=json)는 v0.2에서 fetch.sh에 붙는다. 그전까지 json 모드는 manual과 같게 동작한다 — Claude가 `data/*.json`을 직접 열어 읽는다.
 
 ---
 

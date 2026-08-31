@@ -5,11 +5,11 @@ description: 인스타그램 릴스 대본 기획기 — 계정 무관 골격. "
 
 # 릴스대본기획
 
-저장소 루트: 이 SKILL.md의 실제 경로(심볼릭 링크를 따라간 뒤)에서 `.claude/`의 상위 폴더. 다른 폴더에서 이 스킬을 불러도 `계정/`·`.env`·`기획/`은 거기서 찾는다(fetch.sh도 같은 규칙으로 `.env`를 찾는다).
+저장소 루트: 현재 작업 폴더(cwd)에서 시작해 위로 올라가며 처음 만나는, `계정/` 폴더나 `.env`가 있는 폴더. `계정/`·`.env`·`기획/`은 전부 거기 기준이다. SKILL.md 자신의 경로로 루트를 정하지 않는다 — 전역 설치본이면 남의 폴더를 가리킨다. 루트를 못 찾으면 기획을 시작하지 말고 "이 도구의 폴더에서 열어주세요"라고 안내한다.
 계정 폴더: 저장소 루트의 `계정/<인스타 핸들>/` — 이 폴더가 진실의 원천. `계정/` 안에 `_template` 말고 폴더가 하나면 그것을 쓰고, 둘 이상이면 시작 질문 전에 어느 계정인지 먼저 묻는다. 처음이면 `/계정세팅` 스킬이 `계정/_template/`를 복제해 채운다. 계정 폴더가 `_template`뿐이면 기획을 시작하지 않고 "먼저 세팅이 필요해요 — '구축 가이드대로 진행해줘'라고 해주세요"라고 안내한다. 스킬 본체(`.claude/`)는 특정 계정을 몰라야 한다 — 템플릿 업데이트 때 통째로 교체되기 때문이다.
 데이터: 세 가지 모드 중 하나로 읽는다. 어느 모드인지는 저장소 루트의 `.env`로 판단한다.
 - supabase 모드 — `.env`에 `SUPABASE_URL`이 있으면 `bash .claude/skills/릴스대본기획/lib/fetch.sh …`. 레시피는 `lib/queries.md`
-- json 모드 — `.env`에 `DASHBOARD_DIR`만 있으면 그 폴더의 `data/*.json`을 직접 읽어 같은 재료를 만든다. ctx는 `settings.json`(handle·brief·pillars)과 `posts.json`의 `my.profile`, pillars는 `analysis.json`의 `pillars` 분포를 `settings.pillars`의 `targetPercent`와 비교, card R-###은 `discoveries.json`의 `items[]` 중 `cardNo`가 같은 것(caption·transcript·videoAnalysis·analysis), my_top은 `posts.json`의 `my.posts[]`를 `views` 내림차순, refs는 `items[]`의 caption·transcript·analysis.주제에서 키워드가 있는 것을 조회순 15건
+- json 모드 — `.env`에 `DASHBOARD_DIR`만 있으면 fetch.sh가 그 폴더의 `data/*.json`을 직접 읽는다. 명령은 supabase 모드와 똑같다(ctx·pillars·card·my_top·refs). 데이터 파일을 직접 파싱하지 않는다 — fetch.sh만 쓴다
 - 수동 모드 — `.env`가 없으면 데이터 조회를 건너뛴다. 레퍼런스는 사용자가 붙인 대본·캡션·"첫 3초에 보이는 것" 한 줄이고, 기둥 미달 규칙은 적용하지 않는다. 시작 질문 Q1에 "대시보드가 없으면 참고 릴스의 대본과 캡션을 붙여 주세요"를 덧붙인다
 fetch.sh가 ❌를 내면 거기서 멈추지 않는다 — `.env`를 다시 보고 json 또는 수동 모드로 이어간다.
 말투: 존댓말. 로봇 용어("터진 문법", "바이럴 메커니즘") 대신 사람 기획자의 말. 사용자를 부르는 호칭("대표님", "OO님")은 쓰지 않는다 — 팀 누구나 같은 화면을 본다.

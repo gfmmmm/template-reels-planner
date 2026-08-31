@@ -95,7 +95,10 @@ views=[p.get('views') or 0 for p in base]
 avg=(sum(views)/len(views)) if views else 0
 print('# 계정 정체성')
 print()
-print('- 핸들: @%s (%s)' % (settings.get('handle',''), profile.get('displayName') or profile.get('name') or ''))
+print('- 핸들: @%s (%s)' % (settings.get('handle',''), profile.get('displayName') or profile.get('fullName') or profile.get('name') or ''))
+if settings.get('niche'): print('- 니치: %s' % settings['niche'])
+if settings.get('audience'): print('- 타깃: %s' % settings['audience'])
+if settings.get('sources'): print('- 소스 계정: %s' % ', '.join('@'+str(s) for s in settings['sources']))
 print('- 평균 조회: {:,}'.format(int(avg)))
 print('- 수집된 게시물: %d개 (릴스 %d개)' % (len(posts), len(reels)))
 print()
@@ -198,6 +201,8 @@ for pl in settings.get('pillars') or []:
     ok=actual>=target
     comment='충족' if ok else '%.0f%%p 부족' % (target-actual)
     print('| %s | %.0f%% | %s%% | %s | %s |' % (name, actual, target, '✅' if ok else '⚠️ 조정', comment))
+unc=counts.get('미분류',0)
+if unc: print('| 미분류 | %.0f%% | — | — | 대시보드에서 기둥 분류 필요 |' % (unc/total*100 if total else 0))
 " "$DDIR"
   else
   PILV="$(appdata pillars)"
@@ -553,6 +558,11 @@ for it in kept:
     print('- [점수] %d (주제·캡션 %d회 · 대본 %d회)' % (it['_s'], it['_h'], it['_b']))
     print('- [첫 3초] %s' % trunc60(va.get('초반3초훅') or '(없음)'))
     print('- [후킹] %s' % trunc60(an.get('후킹') or '(없음)'))
+    g=an.get('내_채널_관련성') or an.get('내채널_관련성')
+    if isinstance(g, dict):
+        print('- [관련성] %s — %s' % (g.get('등급') or '?', trunc60(g.get('이유') or '')))
+    elif g:
+        print('- [관련성] %s' % trunc60(str(g)))
     print()
     cap=(it.get('caption') or '').strip()
     print('### 캡션(200자)'); print()
