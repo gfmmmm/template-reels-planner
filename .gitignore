@@ -1,0 +1,9 @@
+# 비밀값 — 절대 커밋하지 않는다
+.env
+.env.*
+!.env.example
+
+# 사용자 진행 상태·내부 작업 파일
+.setup-progress.json
+.omc/
+.DS_Store
