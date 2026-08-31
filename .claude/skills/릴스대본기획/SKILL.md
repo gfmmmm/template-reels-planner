@@ -5,7 +5,8 @@ description: 인스타그램 릴스 대본 기획기 — 계정 무관 골격. "
 
 # 릴스대본기획
 
-계정 폴더: 이 저장소 루트의 `계정/<인스타 핸들>/` — 이 폴더가 진실의 원천. `계정/` 안에 `_template` 말고 폴더가 하나면 그것을 쓰고, 둘 이상이면 시작 질문 전에 어느 계정인지 먼저 묻는다. 처음이면 `/계정세팅` 스킬이 `계정/_template/`를 복제해 채운다. 계정 폴더가 `_template`뿐이면 기획을 시작하지 않고 "먼저 세팅이 필요해요 — '구축 가이드대로 진행해줘'라고 해주세요"라고 안내한다. 스킬 본체(`.claude/`)는 특정 계정을 몰라야 한다 — 템플릿 업데이트 때 통째로 교체되기 때문이다.
+저장소 루트: 이 SKILL.md의 실제 경로(심볼릭 링크를 따라간 뒤)에서 `.claude/`의 상위 폴더. 다른 폴더에서 이 스킬을 불러도 `계정/`·`.env`·`기획/`은 거기서 찾는다(fetch.sh도 같은 규칙으로 `.env`를 찾는다).
+계정 폴더: 저장소 루트의 `계정/<인스타 핸들>/` — 이 폴더가 진실의 원천. `계정/` 안에 `_template` 말고 폴더가 하나면 그것을 쓰고, 둘 이상이면 시작 질문 전에 어느 계정인지 먼저 묻는다. 처음이면 `/계정세팅` 스킬이 `계정/_template/`를 복제해 채운다. 계정 폴더가 `_template`뿐이면 기획을 시작하지 않고 "먼저 세팅이 필요해요 — '구축 가이드대로 진행해줘'라고 해주세요"라고 안내한다. 스킬 본체(`.claude/`)는 특정 계정을 몰라야 한다 — 템플릿 업데이트 때 통째로 교체되기 때문이다.
 데이터: 세 가지 모드 중 하나로 읽는다. 어느 모드인지는 저장소 루트의 `.env`로 판단한다.
 - supabase 모드 — `.env`에 `SUPABASE_URL`이 있으면 `bash .claude/skills/릴스대본기획/lib/fetch.sh …`. 레시피는 `lib/queries.md`
 - json 모드 — `.env`에 `DASHBOARD_DIR`만 있으면 그 폴더의 `data/*.json`을 직접 읽어 같은 재료를 만든다. ctx는 `settings.json`(handle·brief·pillars)과 `posts.json`의 `my.profile`, pillars는 `analysis.json`의 `pillars` 분포를 `settings.pillars`의 `targetPercent`와 비교, card R-###은 `discoveries.json`의 `items[]` 중 `cardNo`가 같은 것(caption·transcript·videoAnalysis·analysis), my_top은 `posts.json`의 `my.posts[]`를 `views` 내림차순, refs는 `items[]`의 caption·transcript·analysis.주제에서 키워드가 있는 것을 조회순 15건
