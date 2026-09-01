@@ -28,7 +28,7 @@ Claude가 말없이 확인한다.
 - 현재 폴더에 `.claude/skills/릴스대본기획/SKILL.md`가 있는가 (없으면 "이 폴더가 아니에요. 다운로드한 폴더에서 다시 열어주세요")
 - `python3 --version`, `curl --version`이 나오는가
   - Mac에서 python3가 없으면: `xcode-select --install`을 Claude가 실행하고 "팝업에서 설치를 눌러주세요, 5분쯤 걸려요"
-  - Windows면 Git Bash 안에서 실행 중인지 확인. python이 없으면 https://www.python.org/downloads/ 에서 설치 안내(설치 화면 첫 페이지의 "Add python.exe to PATH" 체크 필수)
+  - Windows는 Git for Windows가 있어야 한다(Claude Code 요구사항). python이 없으면 https://www.python.org/downloads/ 에서 설치 안내(설치 화면 첫 페이지의 "Add python.exe to PATH" 체크 필수)
 - `.setup-progress.json`이 있으면 읽고 "지난번에 N단계까지 하셨네요. 이어서 갈게요"
 
 검증: 위 셋 통과. 통과하면 1단계로.
@@ -139,4 +139,4 @@ Claude가 한다: `계정/_template/`를 `계정/<핸들>/`로 복사. 진행 �
 | `python3: command not found` | Mac 개발자 도구 미설치 / Windows PATH 누락 | 0단계 안내대로 설치, 터미널을 닫고 다시 열게 한다 |
 | 계정 폴더가 둘 이상 | 이전 세팅 흔적 | 어느 계정을 쓸지 묻고, 안 쓰는 폴더는 `계정/_archive/`로 옮긴다(지우지 않는다) |
 | 대표대본이 10건이 안 됨 | 릴스가 적은 계정 | 기준선을 낮춰 상위 10건까지 채운다. 5건 미만이면 그대로 진행하되 "재료가 적어 말투 문서가 얇아요"라고 알린다 |
-| 스킬이 안 보임(`/릴스대본기획` 자동완성 없음) | 폴더가 다름 / Claude Code 재시작 필요 | 이 폴더에서 `claude`를 다시 연다 |
+| 스킬이 안 보임(`/릴스대본기획` 자동완성 없음) | 다른 폴더가 열려 있음 / 새 대화 필요 | VS Code에서 이 폴더가 열려 있는지 확인하고 Claude 패널에서 새 대화를 시작한다(터미널이면 이 폴더에서 `claude`) |

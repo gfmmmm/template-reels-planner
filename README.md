@@ -9,19 +9,19 @@
 
 1. 사용자에게 폴더를 어디에 둘지 묻는다(기본: 바탕화면의 `reels-planner`).
 2. ZIP을 받아 푼다: `curl -L -o rp.zip https://github.com/gfmmmm/template-reels-planner/archive/refs/heads/main.zip && unzip -q rp.zip && mv template-reels-planner-main <폴더> && rm rp.zip`
-3. 사용자에게 딱 두 줄 안내한다 — "폴더가 생겼어요. 터미널에서 `cd <폴더>` 를 치고 `claude` 를 다시 실행한 뒤, '구축 가이드대로 진행해줘'라고 말해주세요." (이 폴더의 규칙과 가이드는 그 폴더에서 열어야 읽힌다.)
+3. 사용자에게 딱 두 줄 안내한다 — "폴더가 생겼어요. VS Code에서 위 메뉴 파일 → 폴더 열기로 그 폴더를 연 다음, 왼쪽 Claude 패널에서 새 대화를 시작해 '구축 가이드대로 진행해줘'라고 말해주세요." (이 폴더의 규칙과 가이드는 그 폴더를 열어야 읽힌다. 터미널을 쓰는 사람이면 그 폴더에서 `claude`를 실행해도 같다.)
 4. 그 폴더에서 열린 Claude Code는 `SETUP.md`를 읽고 0단계부터 진행한다.
 
 ## 필요한 것
 
-- Claude Code (유료 플랜). 설치: https://docs.claude.com/ko/docs/claude-code/overview
-- Mac 또는 Windows(Git Bash). python3
+- VS Code(또는 Antigravity 같은 VS Code 계열) + Claude Code 확장, 로그인까지(유료 플랜). 설치: https://docs.claude.com/ko/docs/claude-code/overview
+- Mac 또는 Windows(Windows는 Git for Windows가 있어야 함 — Claude Code 요구사항). python3
 - 있으면 좋은 것: 크리에이터 대시보드(본인 릴스·레퍼런스 데이터). 없어도 대본을 직접 붙여 넣는 방식으로 씁니다
 
 ## 설치 — 세 줄
 
 1. 이 페이지 오른쪽 위 초록 `Code` 버튼 → `Download ZIP` → 압축을 풀어 원하는 곳에 둡니다 (폴더 이름은 마음대로)
-2. 그 폴더에서 터미널을 열고 `claude` 를 실행합니다
+2. VS Code에서 파일 → 폴더 열기로 그 폴더를 열고, 왼쪽 Claude 패널을 켭니다
 3. 이렇게 말합니다: **"구축 가이드대로 진행해줘"**
 
 그다음은 Claude Code가 [SETUP.md](SETUP.md)를 읽고 다섯 단계를 하나씩 이끌어 줍니다. 넉넉히 20분이에요. 컴퓨터 쪽 일은 Claude가 하고, 본인은 질문에 답하고 붙여 넣기만 하면 됩니다.
