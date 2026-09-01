@@ -23,3 +23,5 @@
 | `manual` | `.env` 파일 자체가 없음(또는 둘 다 없음) | 모든 명령이 `ℹ️ .env 없음 — 수동 모드입니다. SKILL.md '데이터' 절대로 진행하세요.` 한 줄을 내고 exit 0 (❌·exit 1 아님 — 스킬이 여기서 멈추지 않게) |
 
 `bash lib/fetch.sh mode` 로 현재 모드를 바로 확인할 수 있다. `json` 모드에서 `DASHBOARD_DIR/data/posts.json`이 없으면(대시보드 폴더 경로가 틀린 경우) `❌ ... 이 없습니다 — 대시보드 폴더가 맞는지 확인` 후 exit 1.
+
+모드 자동 판별 순서: `.env`의 `SUPABASE_URL` → `DASHBOARD_DIR` → 같은 폴더의 `data/posts.json`(통합 번들, .env 불필요) → 그 외 수동 모드.

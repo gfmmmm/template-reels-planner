@@ -18,16 +18,16 @@ usage() {
 ROOT="$(cd -P "$(dirname "$0")" && cd ../../../.. && pwd)"  # -P: 전역(~/.claude/skills) 심볼릭 링크로 불러도 실제 폴더의 .env 를 찾는다
 
 NOENV_MSG="ℹ️ .env 없음 — 수동 모드입니다. SKILL.md '데이터' 절대로 진행하세요."
-if [ ! -f "$ROOT/.env" ]; then
-  echo "$NOENV_MSG"
-  exit 0
+# 통합 번들(대시보드 폴더 안에 이 스킬이 들어 있는 경우): 같은 폴더의 data/posts.json 을 .env 없이도 자동으로 읽는다
+if [ -f "$ROOT/.env" ]; then
+  set -a; . "$ROOT/.env"; set +a
 fi
-set -a; . "$ROOT/.env"; set +a
-
 if [ -n "${SUPABASE_URL:-}" ]; then
   MODE="supabase"
 elif [ -n "${DASHBOARD_DIR:-}" ]; then
   MODE="json"
+elif [ -f "$ROOT/data/posts.json" ]; then
+  DASHBOARD_DIR="$ROOT"; MODE="json"
 else
   MODE="manual"
 fi
